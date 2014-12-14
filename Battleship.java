@@ -127,99 +127,100 @@ public class Battleship {
 
     /********************************* YOUR CODE GOES IN THE METHODS BELOW! *******************************************/
 
-    // Place a ship horizontally to the left of the given col within the given row, with the given size. When this
-    // method is called the position has already been validated, so you don't need to worry about being out of bounds or
-    // running into another ship. Remember, column values decrease from right to left! Think carefully about where your
-    // for loop should start and end. This method should only take a few lines!
-    public static void placeShipLeft(int[][] gameBoard, int row, int col, int shipSize) {
-        /* YOUR CODE GOES HERE */
+    // Place a ship horizontally to the left of the given col within the given row, with the given size.
+    public static void placeShipLeft(int[][] gameBoard, int row, int col, int shipSize)
+        for(int counter = 0; counter < shipSize; counter++) {
+            gameBoard[row - counter][col] = 1;
+        }
     }
 
-    // Place a ship horizontally to the right of the given col within the given row, with the given size. When this
-    // method is called the position has already been validated, so you don't need to worry about being out of bounds or
-    // running into another ship. Remember, column values increase from left to right! Think carefully about where your
-    // for loop should start and end. This method should only take a few lines!
+    // Place a ship horizontally to the right of the given col within the given row, with the given size.
     public static void placeShipRight(int[][] gameBoard, int row, int col, int shipSize) {
-        /* YOUR CODE GOES HERE */
+        for(int counter = 0; counter < shipSize; counter++) {
+            gameBoard[row + counter][col] = 1;
+        }
     }
 
-    // Place a ship vertically above the given row within the given col, with the given size. When this method is called
-    // the position has already been validated, so you don't need to worry about being out of bounds or running into
-    // another ship. Remember, row values decrease as you go up! Think carefully about where your for loop should start
-    // and end. This method should only take a few lines!
+    // Place a ship vertically above the given row within the given col, with the given size. 
     public static void placeShipUp(int[][] gameBoard, int row, int col, int shipSize) {
-        /* YOUR CODE GOES HERE */
+        for(int counter = 0; counter < shipSize; counter++) {
+            gameBoard[row][col - counter] = 1;
+        }
     }
 
-    // Place a ship vertically below the given row within the given col, with the given size. When this method is called
-    // the position has already been validated, so you don't need to worry about being out of bounds or running into
-    // another ship. Remember, row values increase as you go down! Think carefully about where your for loop should start
-    // and end. This method should only take a few lines!
+    // Place a ship vertically below the given row within the given col, with the given size.
     public static void placeShipDown(int[][] gameBoard, int row, int col, int shipSize) {
-        /* YOUR CODE GOES HERE */
+        for(int counter = 0; counter < shipSize) {
+            gameBoard[row][col + counter] = 1;
+        }
     }
 
-    // Validate that a ship placed in the given row starting at startCol and ending at endCol will be valid. A ship will
-    // be valid if the following are true:
-    //  startCol is greater than 0 AND
-    //  endCol is less than 9 AND
-    //  None of the cells in the gameBoard's row, from startCol to endCol, already contain a ship (contain a value of
-    //  1).
+    // Validate that a ship placed in the given row starting at startCol and ending at endCol will be valid.
     public static boolean isValidShipRow(int[][] gameBoard, int startCol, int endCol, int row) {
         boolean result = true;
-
-        /* YOUR CODE GOES HERE */
-
+        if(startCol > 0 && endCol < 9) {
+            for(int counter = startCol; counter = endCol; counter++) {
+                if(gameBoard[row][counter]==1) {
+                    result = false;
+                }
+            }
+        }
         return result;
     }
 
-    // Validate that a ship placed in the given col starting at startRow and ending at endRow will be valid. A ship will
-    // be valid if the following are true:
-    //  startRow is greater than 0 AND
-    //  endRow is less than 9 AND
-    //  None of the cells in the gameBoard's column, from startRow to endRow, already contain a ship (contain a value of
-    //  1).
+    // Validate that a ship placed in the given col starting at startRow and ending at endRow will be valid.
     public static boolean isValidShipCol(int[][] gameBoard, int startRow, int endRow, int col) {
         boolean result = true;
-
-        /* YOUR CODE GOES HERE */
-
+        if(startRow > 0 && endRow < 9) {
+            for(int counter = startRow; counter = endRow; counter++) {
+                if(gameBoard[counter][col]==1) {
+                    result = false;
+                }
+            }
+        }
         return result;
     }
 
-    // Returns true if the row and col represent a cell that is a valid guess, false otherwise. A guess is valid if the
-    // following things are true:
-    //  row is within the row indexes (0 to 9 inclusive) AND
-    //  col is within the col indexes (0 to 9 inclusive) AND
-    //  the gameBoard contains EITHER no guess OR a ship at [row][col]
+    // Returns true if the row and col represent a cell that is a valid guess, false otherwise.
     public static boolean isValidGuess (int[][] gameBoard, int row, int col) {
         boolean result = false;
-
-        /* YOUR CODE GOES HERE */
-
+        if(row >= 0 && row <= 9) {
+            if(col >= 0 && col <= 9) {
+                if(gameBoard[row][col] == 0 || gameBoard[row][col] == 1) {
+                    result = true;
+                }
+            }
+        }
         return result;
     }
 
     // Make a guess for the given row and col, returning true if the guess was a HIT and false if the guess was a MISS.
-    // Also changes the board to represent a HIT or MISS - remember, HIT is represented with 2 and MISS is represented
-    // with 3!
     public static boolean makeGuess (int[][] gameBoard, int row, int col) {
         boolean result = false;
-
-        /* YOUR CODE GOES HERE */
-
+        if(gameBoard[row][col] == 0) {
+            gameBoard[row][col] = 3;
+        }
+        else if(gameBoard[row][col] == 1) {
+            result = true;
+            gameBoard[row][col] = 2;
+        }
         return result;
     }
 
-    // Return true if the game is over for the given board and max number of hits, false otherwise. A game is over if,
-    // after summing up all the hits on the board, that sum is equal to the maxHits. Remember, hits are represented by a
-    // 2!
+    // Return true if the game is over for the given board and max number of hits, false otherwise.
     public static boolean gameOver(int[][] playerBoard, int maxHits) {
         int hitSum = 0;
         boolean result = false;
-
-        /* YOUR CODE GOES HERE */
-
+        for(int counterh = 0; counterh = 9; counterh++) {
+            for(int counterv = 0; counterv = 9; counterv++) {
+                if(gameBoard[counterh][counterv] ==2) {
+                    hitSum++;
+                }
+            }
+        }
+        if(hitSum ==maxHits) {
+            result = true;
+        }
         return result;
     }
 
